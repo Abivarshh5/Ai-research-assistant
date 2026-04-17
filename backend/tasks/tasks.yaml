@@ -1,0 +1,110 @@
+search_task:
+  description: >
+    TOPIC: "{topic}"
+    Generate 3 distinct search queries covering different dimensions:
+    1. A broad definition and overview.
+    2. Specific risks, challenges, or limitations.
+    3. Practical applications and real-world use cases.
+    Execute the Search Tool and News API Tool for these queries.
+    Gather as many unique relevant URLs as possible (Maximum 15 total).
+    Your output must be a raw string containing all found URLs.
+  expected_output: >
+    A list of discovered URLs.
+
+selection_task:
+  description: >
+    RAW SEARCH DATA:
+    "{search_data}"
+
+    Analyze the raw search results and select exactly 5 high-priority, unique, and relevant source URLs.
+    Scoring Criteria:
+    - Domain Authority: Prioritize academic (.edu), government (.gov), and official organizations (.org).
+    - Relevance: How closely the snippet matches the research topic.
+    - Content Depth: Prefer detailed articles/papers over short blog posts.
+
+    DIVERSITY RULE: Select NO MORE than one URL from any single domain.
+    
+    You MUST return ONLY a JSON array of strings.
+    No explanations, no markdown code blocks, no other text.
+    Example: ["https://url1.com", "https://url2.com"]
+  expected_output: >
+    A JSON array of exactly 5 URL strings.
+
+report_task:
+  description: >
+    TOPIC: "{topic}"
+    AGGREGATED INSIGHTS:
+    "{insights}"
+    
+    SOURCES:
+    "{sources}"
+
+    Using ONLY the provided AGGREGATED INSIGHTS and referring to the SOURCES list for citations, generate a comprehensive research report.
+    - Every claim MUST be supported by at least one citation from the sources list.
+    - Merge overlapping information.
+    - Remove redundancy.
+    - Maintain a professional tone.
+    - Include inline citations like [1], [2] corresponding to the sources.
+
+    Strictly follow this structure:
+
+    Title: <Topic>
+
+    1. Introduction
+    - Brief overview of the topic
+
+    2. Key Concepts
+    - Important definitions and explanations
+
+    3. Applications / Use Cases
+    - Real-world usage
+
+    4. Insights & Trends
+    - Key observations from sources
+
+    5. Conclusion
+    - Summary of findings
+
+    6. Sources
+    - List of URLs used
+
+    DO NOT include hallucinations.
+    DO NOT include JSON or tool calls.
+    DO NOT include reasoning traces.
+  expected_output: >
+    A structured Markdown research report containing all 6 required sections with inline citations.
+
+aggregation_task:
+  description: >
+    RAW SCRAPED DATA:
+    "{sources}"
+
+    Normalize the provided content into a structured summary:
+    - Eliminate duplicate information.
+    - Merge similar points into cohesive paragraphs.
+    - Extract:
+      1. Core Definitions (What is it?)
+      2. Major Risks/Challenges (What are the dangers?)
+      3. Key Applications (Where is it used?)
+      4. Significant Examples (Who is using it/Real-world cases?)
+
+    Ensure all synthesized points remain traceable to their original source index.
+  expected_output: >
+    A structured synthesis of key insights covering definitions, risks, applications, and examples.
+
+refinement_task:
+  description: >
+    ORIGINAL REPORT:
+    "{report}"
+
+    USER FEEDBACK:
+    "{feedback}"
+
+    Improve the report based on the provided feedback.
+    - If feedback asks for brevity, shorten the report.
+    - If feedback asks for examples, flesh out the applications/insights.
+    - Maintain all citations [1], [2], etc. from the original report.
+    - Do NOT add new external information not present in the original report or insights.
+    - Maintain a professional tone.
+  expected_output: >
+    An improved, clearer version of the research report that addresses the user's specific feedback.
