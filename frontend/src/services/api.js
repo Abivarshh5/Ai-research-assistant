@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const API_BASE_URL = "https://ai-research-assistant-frontend-8hle.vercel.app/";
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
