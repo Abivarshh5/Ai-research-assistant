@@ -94,16 +94,6 @@ The project follows a modular architecture where the **LangGraph** engine coordi
 
 ---
 
-## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
 
----
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Developed with ❤️ by [Abivarshh](https://github.com/Abivarshh5)
